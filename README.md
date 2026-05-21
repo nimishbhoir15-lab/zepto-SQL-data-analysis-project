@@ -1,79 +1,93 @@
-# zepto-SQL-data-analysis-project
-This is a complete, real-world data analyst portfolio project based on an e-commerce inventory dataset scraped from Zepto — one of India’s fastest-growing quick-commerce startups. This project simulates real analyst workflows, from raw data exploration to business-focused data analysis.
+# 🛒 Zepto SQL Data Analysis Project
 
-📌 Project Overview
+This project is a SQL-based data analytics project built using a real-world e-commerce inventory dataset from Zepto. The goal of this project is to perform data cleaning, exploratory data analysis, and business analysis using SQL to generate meaningful insights from raw inventory data.
 
-✅ Set up a messy, real-world e-commerce inventory database
+The project helped me understand how analysts work with large business datasets and use SQL to solve real-world problems related to pricing, inventory, discounts, and stock availability.
 
-✅ Perform Exploratory Data Analysis (EDA) to explore product categories, availability, and pricing inconsistencies
+---
 
-✅ Implement Data Cleaning to handle null values, remove invalid entries, and convert pricing from paise to rupees
+## 📌 Project Overview
 
-✅ Write business-driven SQL queries to derive insights around pricing, inventory, stock availability, revenue and more
+In this project, I worked with an e-commerce inventory dataset containing product details such as pricing, discounts, stock quantity, and product categories.
 
+Using SQL, I performed:
 
-📁 Dataset Overview
-The dataset was sourced from Kaggle and was originally scraped from Zepto’s official product listings. It mimics what you’d typically encounter in a real-world e-commerce inventory system.
+- Data Cleaning
+- Exploratory Data Analysis (EDA)
+- Inventory Analysis
+- Business Insight Generation
 
-Each row represents a unique SKU (Stock Keeping Unit) for a product. Duplicate product names exist because the same product may appear multiple times in different package sizes, weights, discounts, or categories to improve visibility – exactly how real catalog data looks.
+This project focuses on understanding business data and extracting useful insights through SQL queries.
 
-🧾 Columns:
+---
 
-sku_id: Unique identifier for each product entry (Synthetic Primary Key)
+## 📁 Dataset Overview
 
-name: Product name as it appears on the app
+The dataset was sourced from Kaggle and contains inventory-related information from Zepto products.
 
-category: Product category like Fruits, Snacks, Beverages, etc.
+Each row represents a unique product SKU and includes details such as:
 
-mrp: Maximum Retail Price (originally in paise, converted to ₹)
+- Product Name
+- Category
+- MRP
+- Discount Percentage
+- Selling Price
+- Available Quantity
+- Product Weight
+- Stock Availability
 
-discountPercent: Discount applied on MRP
+The dataset also contains duplicate products with different package sizes and pricing variations, similar to real-world e-commerce platforms.
 
-discountedSellingPrice: Final price after discount (also converted to ₹)
+---
 
-availableQuantity: Units available in inventory
+## 🛠️ Technologies Used
 
-weightInGms: Product weight in grams
+- SQL
+- PostgreSQL
+- pgAdmin
+- CSV Dataset
 
-outOfStock: Boolean flag indicating stock availability
+---
 
-quantity: Number of units per package (mixed with grams for loose produce)
+## 🔧 Project Workflow
 
-🔧 Project Workflow
-Here’s a step-by-step breakdown of what we do in this project:
+### 1️⃣ Database Creation
+Created tables using appropriate SQL data types and constraints for storing inventory data.
 
-1. Database & Table Creation
-We start by creating a SQL table with appropriate data types:
+### 2️⃣ Data Import
+Imported the CSV dataset into PostgreSQL using pgAdmin.
 
-2. Data Import
-Loaded CSV using pgAdmin's import feature.
+### 3️⃣ Data Exploration
+Performed exploratory analysis to:
+- Understand dataset structure
+- Identify unique product categories
+- Check stock availability
+- Detect duplicate products
+- Analyze missing and inconsistent data
 
-3. 🔍 Data Exploration
-Counted the total number of records in the dataset
-Viewed a sample of the dataset to understand structure and content
-Checked for null values across all columns
-Identified distinct product categories available in the dataset
-Compared in-stock vs out-of-stock product counts
-Detected products present multiple times, representing different SKUs
+### 4️⃣ Data Cleaning
+Cleaned the dataset by:
+- Removing invalid records
+- Handling zero-value pricing entries
+- Converting pricing values from paise to rupees
+- Improving overall data consistency
 
-4. 🧹 Data Cleaning
-Identified and removed rows where MRP or discounted selling price was zero
+### 5️⃣ Business Analysis
+Generated insights using SQL queries such as:
+- Top discounted products
+- High-value out-of-stock products
+- Revenue estimation by category
+- Categories with highest average discounts
+- Value-for-money product analysis
+- Inventory weight analysis
 
-Converted mrp and discountedSellingPrice from paise to rupees for consistency and readability
+---
 
-5. 📊 Business Insights
-Found top 10 best-value products based on discount percentage
+## 📊 Sample SQL Query
 
-Identified high-MRP products that are currently out of stock
-
-Estimated potential revenue for each product category
-
-Filtered expensive products (MRP > ₹500) with minimal discount
-
-Ranked top 5 categories offering highest average discounts
-
-Calculated price per gram to identify value-for-money products
-
-Grouped products based on weight into Low, Medium, and Bulk categories
-
-Measured total inventory weight per product category
+```sql
+SELECT category,
+       AVG(discountPercent) AS avg_discount
+FROM zepto
+GROUP BY category
+ORDER BY avg_discount DESC;
